@@ -1,3 +1,6 @@
+# nextrtc-example-wo-spring
+Example of use NextRTC in standalone mode
+
 Clone project and then
 - enter to directory with project
 - run: mvn clean install && mvn cargo:run
