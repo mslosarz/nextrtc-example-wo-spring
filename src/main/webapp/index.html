@@ -52,7 +52,7 @@
 		};
 
 		var nextRTC = new NextRTC({
-			wsURL : 'ws://'+location.hostname+(location.port ? ':'+location.port: '')+'/videochat-wo-spring/signaling',
+            wsURL: 'wss://' + location.hostname + (location.port ? ':' + location.port : '') + '/videochat-wo-spring/signaling',
 			mediaConfig : {
 				video : true,
 				audio : true,
