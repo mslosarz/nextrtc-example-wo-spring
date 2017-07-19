@@ -17,6 +17,7 @@
 	<button onclick="createBroadcastConversation()">Create broadcast</button>
 	<button onclick="joinConversation()">Join</button>
 	<button onclick="leaveConversation()">Leave</button>
+	<button onclick="upperCase()">UpperCase</button>
 </div>
 <div>
 	<ul id="log">
@@ -51,6 +52,16 @@
 			nextRTC.leave();
 		};
 
+        var upperCase = function () {
+            var convId = $('#convId').val();
+            nextRTC.upperCase(convId);
+        }
+
+        NextRTC.prototype.upperCase = function upperCase(content, custom) {
+            var nextRTC = this;
+            nextRTC.request('upperCase', null, content, custom);
+        };
+
 		var nextRTC = new NextRTC({
             wsURL: 'wss://' + location.hostname + (location.port ? ':' + location.port : '') + '/videochat-wo-spring/signaling',
 			mediaConfig : {
@@ -67,6 +78,10 @@
 				rtcpMuxPolicy:'negotiate'
 			}
 		});
+
+        nextRTC.on('upperCase', function (nextRTC, event) {
+            $('#convId').val(event.content);
+        })
 
 		nextRTC.on('created', function(nextRTC, event) {
 			console.log(JSON.stringify(event));
