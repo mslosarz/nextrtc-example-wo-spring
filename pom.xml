@@ -78,6 +78,12 @@
                             ${project.build.directory}/apache-tomcat-${tomcat.version}
                         </home>
                         <properties>
+                            <cargo.start.jvmargs>
+                                -Xdebug
+                                -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
+                                -Xnoagent
+                                -Djava.compiler=NONE
+                            </cargo.start.jvmargs>
                             <cargo.logging>medium</cargo.logging>
                             <cargo.servlet.port>8443</cargo.servlet.port>
                             <cargo.protocol>https</cargo.protocol>
