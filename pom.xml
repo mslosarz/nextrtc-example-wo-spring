@@ -80,7 +80,7 @@
                         <properties>
                             <cargo.start.jvmargs>
                                 -Xdebug
-                                -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005
+                                -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
                                 -Xnoagent
                                 -Djava.compiler=NONE
                             </cargo.start.jvmargs>
