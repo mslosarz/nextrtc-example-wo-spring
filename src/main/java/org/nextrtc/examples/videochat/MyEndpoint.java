@@ -24,6 +24,7 @@ public class MyEndpoint extends NextRTCEndpoint {
         EndpointConfiguration configuration = builder.createDefaultEndpoint();
 
         configuration.nextRTCProperties().setPingPeriod(1);
+        configuration.nextRTCProperties().setJoinOnlyToExisting(true);
 
         configuration.signalResolver().addCustomSignal(Signal.fromString("upperCase"), (msg) -> InternalMessage.create()
                 .to(msg.getFrom())
@@ -31,7 +32,7 @@ public class MyEndpoint extends NextRTCEndpoint {
                 .content(msg.getContent() == null ? "" : msg.getContent().toUpperCase())
                 .build().send());
 
-        configuration.eventDispatcher().addListener(new A());
+        configuration.eventDispatcher().addListener(new CustomHandler());
         return configuration;
     }
 
