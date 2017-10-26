@@ -3,8 +3,7 @@ import React from "react";
 class NextRTC extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {client: new NRTC.NextRTC(props.config)};
-        this.state = {client: "noga"};
+        this.state = {client: 'noga'};// {client: new NRTC.NextRTC(props.config)};
     }
 
     render() {
@@ -18,6 +17,5 @@ class NextRTC extends React.Component {
     }
 
 }
-
 
 export default NextRTC;

@@ -7,7 +7,7 @@ class CreateConversation extends React.Component {
     }
 
     render() {
-        return <p>Create conversation</p>;
+        return <div><p>Create conversation</p></div>;
     }
 }
 

@@ -7,7 +7,10 @@ class OnSignal extends React.Component {
     }
 
     render() {
-        return <p>ON: {this.props.client}</p>;
+        return <div>
+            <p>ONSIGNAL: {this.props.name}</p>
+            <button onClick={this.props.execute}>Press me</button>
+        </div>;
     }
 }
 
