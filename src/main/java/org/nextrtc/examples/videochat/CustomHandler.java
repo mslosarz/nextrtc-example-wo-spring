@@ -7,8 +7,8 @@ import org.nextrtc.signalingserver.api.annotation.NextRTCEventListener;
 import org.nextrtc.signalingserver.api.dto.NextRTCEvent;
 
 @NextRTCEventListener({NextRTCEvents.SESSION_OPENED, NextRTCEvents.MEMBER_JOINED, NextRTCEvents.MEMBER_LEFT})
-class A implements NextRTCHandler {
-    private static final Logger log = Logger.getLogger(A.class);
+class CustomHandler implements NextRTCHandler {
+    private static final Logger log = Logger.getLogger(CustomHandler.class);
 
     @Override
     public void handleEvent(NextRTCEvent event) {

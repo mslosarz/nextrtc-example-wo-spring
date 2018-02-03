@@ -25,13 +25,14 @@ public class MyEndpoint extends NextRTCEndpoint {
 
         configuration.nextRTCProperties().setPingPeriod(1);
 
-        configuration.signalResolver().addCustomSignal(Signal.fromString("upperCase"), (msg) -> InternalMessage.create()
-                .to(msg.getFrom())
-                .signal(Signal.fromString("upperCase"))
-                .content(msg.getContent() == null ? "" : msg.getContent().toUpperCase())
-                .build().send());
+        configuration.signalResolver().addCustomSignal(Signal.fromString("upperCase"), (msg) ->
+                configuration.messageSender().send(InternalMessage.create()
+                        .to(msg.getFrom())
+                        .signal(Signal.fromString("upperCase"))
+                        .content(msg.getContent() == null ? "" : msg.getContent().toUpperCase())
+                        .build()));
 
-        configuration.eventDispatcher().addListener(new A());
+        configuration.eventDispatcher().addListener(new CustomHandler());
         return configuration;
     }
 
