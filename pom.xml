@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.nextrtc.signalingserver</groupId>
             <artifactId>nextrtc-signaling-server</artifactId>
-            <version>1.0.0-RC2</version>
+            <version>1.0.0-RC5</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>
@@ -52,95 +52,17 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>install node and npm</id>
-                        <goals>
-                            <goal>install-node-and-npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>npm install</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                    <execution>
-                        <id>install webpack</id>
-                        <goals>
-                            <goal>webpack</goal>
-                        </goals>
-                        <phase>generate-resources</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <installDirectory>target</installDirectory>
-                    <workingDirectory>webapp</workingDirectory>
-                    <nodeVersion>v6.11.4</nodeVersion>
-                    <npmVersion>5.5.1</npmVersion>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/src/main/webapp</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>webapp/src</directory>
-                                    <excludes>
-                                        <exclude>app/**</exclude>
-                                    </excludes>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.1.0</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>src/main/webapp</directory>
-                            <excludes>
-                                <exclude>WEB-INF/**</exclude>
-                            </excludes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                        <fileset>
-                            <directory>webapp/node_modules</directory>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.6.4</version>
+                <version>1.6.6</version>
                 <configuration>
                     <container>
                         <containerId>tomcat8x</containerId>
@@ -160,6 +82,8 @@
                                 -Xdebug
                                 -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
                                 -Xnoagent
+                                -Dorg.apache.tomcat.websocket.executorCoreSize=10
+                                -Dorg.apache.tomcat.websocket.executorMaxSize=15
                                 -Djava.compiler=NONE
                             </cargo.start.jvmargs>
                             <cargo.logging>medium</cargo.logging>
