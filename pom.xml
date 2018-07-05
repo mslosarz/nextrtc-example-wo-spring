@@ -105,7 +105,7 @@
                             <artifactId>${project.artifactId}</artifactId>
                             <type>war</type>
                             <properties>
-                                <context>/videochat-wo-spring</context>
+                                <context>/</context>
                             </properties>
                         </deployable>
                     </deployables>
