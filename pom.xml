@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.nextrtc.signalingserver</groupId>
             <artifactId>nextrtc-signaling-server</artifactId>
-            <version>1.0.0-RC5</version>
+            <version>1.0.0-RC6</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework</groupId>

@@ -16,20 +16,24 @@ import java.io.IOException;
 public class MyEndpoint {
 
     private static final Logger log = LoggerFactory.getLogger(MyEndpoint.class);
-    private static final NextRTCServer server = NextRTCServer.create(configuration -> {
-        configuration.nextRTCProperties().setPingPeriod(1);
-        configuration.nextRTCProperties().setJoinOnlyToExisting(true);
+    private static final NextRTCServer server = buildServer();
 
-        configuration.signalResolver().addCustomSignal(Signal.fromString("upperCase"), (msg) ->
-                configuration.messageSender().send(InternalMessage.create()
-                        .to(msg.getFrom())
-                        .signal(Signal.fromString("upperCase"))
-                        .content(msg.getContent() == null ? "" : msg.getContent().toUpperCase())
-                        .build()));
+    private static NextRTCServer buildServer() {
+        return NextRTCApp.serverInstance(NextRTCServer.create(configuration -> {
+            configuration.nextRTCProperties().setPingPeriod(1);
+            configuration.nextRTCProperties().setJoinOnlyToExisting(true);
 
-        configuration.eventDispatcher().addListener(new CustomHandler());
-        return configuration;
-    });
+            configuration.signalResolver().addCustomSignal(Signal.fromString("upperCase"), (msg) ->
+                    configuration.messageSender().send(InternalMessage.create()
+                            .to(msg.getFrom())
+                            .signal(Signal.fromString("upperCase"))
+                            .content(msg.getContent() == null ? "" : msg.getContent().toUpperCase())
+                            .build()));
+
+            configuration.eventDispatcher().addListener(new CustomHandler());
+            return configuration;
+        }));
+    }
 
     private static class SessionWrapper implements Connection {
 
@@ -56,6 +60,11 @@ public class MyEndpoint {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+
+        @Override
+        public void close() throws IOException {
+            session.close();
         }
     }
 
